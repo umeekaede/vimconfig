@@ -1,0 +1,155 @@
+snippet rootSimple
+abbr  root draw
+alias simple
+options head
+   void ${1:#:filename}(){
+     TFile *file0 = new TFile("${2:#:root_file}");
+     TTree *tree = (TTree *) file0->Get("${3:#:Tree_var}");
+     tree->Draw("${4:#:Branch}");
+   }"
+
+snippet rootkasanegaki
+abbr  root draw kasanegaki
+alias kasanegaki
+options head
+    void ${1:#:macro_name}(){
+	  TFile *file0 = new TFile("${2:#:rootfile}");
+	  TTree *raw = (TTree *) file0->Get("${3:#:tree_name}");
+
+	  raw->Draw("${4:#:Branch}>>h(${5}, ${6}, ${7}"); // ex Px>>h(100, -20, 20)
+
+	  TH1D *h1 = new TH1D("h1", "h1", $5, $6, $7); // not draw but make instance
+
+	  raw->Project("h1", "${8:#:Other_Branch}");
+	  h1->SetLineColor(8);
+	  h1->Draw("same");
+	}
+
+snippet rootTFile
+abbr  TFile
+alias rootTFile
+options head
+    TFile *file${1:#:num} = new TFile("${2:#:filename_string}");
+
+snippet rootTTree
+abbr  TTree
+alias rootTTree
+options head
+    TTree *${1:#:tree_var} = (TTree *)file${2:#:num}->Get("${3:#:tree_string}");
+
+
+snippet rootForm
+abbr  Form
+alias Form
+options head
+    Form("${1:#:input_file_string}", ${2:#: format_specification});
+
+snippet rootAxis
+abbr  Axis
+alias rootAxis
+options head
+    ${1:#:histname}->GetXaxis()->SetTitle("${2:#:xname}");
+    $1->GetYaxis()->SetTitle("${3:#:yname}");
+
+snippet rootTH1Is
+abbr  make many TH1I
+alias TH1Is
+options head
+    TH1I *h[${1}];
+    for(int i=0; i<${1}; i++){
+      h[i]=new TH1I(Form("h[%d]",i), Form("h[%d]",i), ${2}, ${3}, ${4});
+    }
+
+snippet rootTH1Ds
+abbr  make many TH1D
+alias TH1Ds
+options head
+    TH1D *h[${1}];
+    for(int i=0; i<$1; i++){
+      h[i]=new TH1D(Form("h[%d]",i), Form("h[%d]",i), ${2}, ${3}, ${4});
+    }
+
+
+snippet rootCanvas
+abbr  make Canvas
+alias rootCanvas
+options head
+    TCanvas *c${1}=new TCanvas();
+
+snippet rootCanvas2
+abbr  make Canvas2
+alias rootCanvas2
+options head
+    TCanvas *c${1}=new TCanvas("c$1", " ", 800, 800);
+
+snippet rootCanvacies
+abbr  make many Canvas
+alias rootCanvacies
+options head
+    TCanvas *c[$1];
+    for(int i=0; i<$1; i++){
+      c[i]=new TCanvas(Form("c[%d]",i), " ", 800, 800);
+    }
+
+snippet root2split
+abbr  draw 2 map on up-down
+alias root2split
+options head
+    TCanvas *c${1}=new TCanvas("c$1", " ", 800, 800);
+    c$1->Divide(1,2);
+    c$1->cd(1);
+    tree->Draw("${2}","","colz");
+    c$1->cd(2);
+    tree->Draw("${3}","","colz");
+
+
+snippet rootSetBranchAddress
+abbr  SetBranchAddress
+alias SetBranchAddress
+options head
+    SetBranchAddress("${1:#:leaf_name}", ${2:#:leaf_var});
+
+#sample
+
+#include
+snippet cout
+abbr  cout
+alias cout
+options head
+    cout << $1 << endl;
+
+snippet rootInclude
+abbr  include
+alias incroot
+options head
+    #include <stdlib.h>
+	#include <iostream>
+	#include <string>
+	#include <algorithm>
+	#include <vector>
+	#include <iomanip>
+	#include <math.h>
+	#include <complex>
+	#include <queue>
+	#include <deque>
+	#include <stack>
+	#include <map>
+	#include <set>
+	#include <bitset>
+	#include <functional>
+	#include <numeric>
+	#include <TROOT.h>
+	#include <TGraph.h>
+	#include <TF1.h>
+	#include <TH1.h>
+	#include <TH2.h>
+	#include <TFile.h>
+	#include <TTree.h>
+	#include <TCanvas.h>
+	#include <TCut.h>
+	#include <TGraph.h>
+	using namespace std;
+	typedef long long ll;
+	const ll INF = 1LL << 60;
+	const ll MOD = 1e9+7;
+
