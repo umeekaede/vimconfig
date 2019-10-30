@@ -24,13 +24,11 @@ Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kana/vim-submode'
 Plugin 'kassio/neoterm'
-
 Plugin 'Shougo/neomru.vim'
 Plugin 'Shougo/neocomplcache.vim'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet.vim'
 Plugin 'Shougo/neosnippet-snippets'
-
 call vundle#end()
 filetype plugin indent on
 
@@ -117,11 +115,11 @@ let g:neocomplete#max_keyword_width = 80
 let g:neocomplete#enable_ignore_case = 1
 
 " 3文字以上の単語に対して補完を有効にする
-let g:neocomplete#min_keyword_length = 3
+let g:neocomplete#min_keyword_length = 2
 " 区切り文字まで補完する
 let g:neocomplete#enable_auto_delimiter = 1
 " 1文字目の入力から補完のポップアップを表示
-let g:neocomplete#auto_completion_start_length = 3
+let g:neocomplete#auto_completion_start_length = 2
 inoremap <expr><CR>  pumvisible() ? neocomplete#close_popup() : "<CR>"
 
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -202,3 +200,16 @@ map <silent> [Tag]p :tabprevious<CR>
 " eol     : 改行
 " start   : 挿入モード開始位置より手前の文字
 set backspace=indent,eol,start
+
+let g:neoterm_default_mod = 'split'
+let g:neoterm_size = 20
+set termwinsize=8x0
+"set clipboard=unnamed,autoselect
+"" Save fold settings.
+autocmd BufWritePost * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
+autocmd BufRead * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
+" Don't save options.
+set viewoptions-=options
+set number
+set cursorline
+highlight CursorLine ctermbg=Black
