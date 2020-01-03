@@ -14,7 +14,6 @@ endif
 
 Plugin 'Shougo/neocomplcache'
 Plugin 'Shougo/neocomplete'
-
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'shougo/vimshell'
@@ -29,13 +28,17 @@ Plugin 'Shougo/neocomplcache.vim'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet.vim'
 Plugin 'Shougo/neosnippet-snippets'
+Plugin 'vim-scripts/vim-auto-save'
+Plugin 'cohama/lexima.vim'
+
+Plugin 'dhruvasagar/vim-table-mode'
 call vundle#end()
 filetype plugin indent on
 
+let g:table_mode_corner="|"
+
 "　その他のカスタム設定を以下に書く
 "indent
-set background=dark
-"set background=light
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_start_level = 2
@@ -51,13 +54,12 @@ nmap <silent> vp :<C-u>VimShellPop<CR>
 
 
 "by myself
-colorscheme default
+colorscheme hybrid
 set encoding=utf-8
 scriptencoding utf-8
-syntax on
+syntax enable
 hi Comment ctermfg=green
 "set number
-set term=xterm-256color
 nnoremap <CR> i<CR><ESC>
 nnoremap <Space> i<Space><ESC>l
 vnoremap <c-a> <c-a>gv
@@ -75,6 +77,7 @@ set incsearch " インクリメンタルサーチ. １文字入力毎に検索�
 set ignorecase " 検索パターンに大文字小文字を区別しない
 set smartcase " 検索パターンに大文字を含んでいたら大文字小文字を区別する
 set hlsearch " 検索結果をハイライト
+hi Search ctermbg=Cyan
 set autoindent " 改行時に前の行のインデントを継続する
 set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
 hi Search ctermbg=Red
@@ -88,7 +91,7 @@ set history=5000 " 保存するコマンド履歴の数
 "set paste
 nnoremap <silent> <C-j> :bprev<CR>
 nnoremap <silent> <C-k> :bnext<CR>
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
+nnoremap <silent><C-@> :NERDTreeToggle<CR>
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
 call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
@@ -104,7 +107,7 @@ highlight Pmenu ctermbg=4
 highlight PmenuSel ctermbg=1
 highlight PMenuSbar ctermbg=4
 " 自分用 snippet ファイルの場所
-let s:my_snippet = '~/snippet/'
+let s:my_snippet = '~/.vim/snippet/'
 let g:neosnippet#snippets_directory = s:my_snippet
 ""起動時に有効
 let g:neocomplete#enable_at_startup = 1
@@ -203,7 +206,7 @@ set backspace=indent,eol,start
 
 let g:neoterm_default_mod = 'split'
 let g:neoterm_size = 20
-set termwinsize=8x0
+"set termwinsize=8x0
 "set clipboard=unnamed,autoselect
 "" Save fold settings.
 autocmd BufWritePost * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
@@ -212,4 +215,21 @@ autocmd BufRead * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview
 set viewoptions-=options
 set number
 set cursorline
+let g:vim_markdown_conceal = 0
+
+let g:auto_save=1
+let g:auto_save_in_insert_mode=0
+set termwinsize=8x0
+set splitbelow
+set mouse=a
+set ttymouse=xterm2
+"set background=light
+colorscheme molokai
+"colorscheme solarized
+set term=xterm-256color
+syntax enable
+colorscheme solarized
+set background=dark
 highlight CursorLine ctermbg=Black
+
+hi Terminal ctermbg=black
