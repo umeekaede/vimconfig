@@ -1,4 +1,6 @@
+set formatoptions-=ro
 set nocompatible
+""" Save fold settings.
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -29,7 +31,7 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet.vim'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'vim-scripts/vim-auto-save'
-Plugin 'cohama/lexima.vim'
+"Plugin 'cohama/lexima.vim'
 
 Plugin 'dhruvasagar/vim-table-mode'
 call vundle#end()
@@ -54,7 +56,6 @@ nmap <silent> vp :<C-u>VimShellPop<CR>
 
 
 "by myself
-colorscheme hybrid
 set encoding=utf-8
 scriptencoding utf-8
 syntax enable
@@ -88,18 +89,9 @@ nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 set showmatch " 括弧の対応関係を一瞬表示する
 set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
-"set paste
-nnoremap <silent> <C-j> :bprev<CR>
-nnoremap <silent> <C-k> :bnext<CR>
-nnoremap <silent><C-@> :NERDTreeToggle<CR>
-call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
-call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
-call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
-call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
-call submode#map('bufmove', 'n', '', '>', '<C-w>>')
-call submode#map('bufmove', 'n', '', '<', '<C-w><')
-call submode#map('bufmove', 'n', '', '+', '<C-w>+')
-call submode#map('bufmove', 'n', '', '-', '<C-w>-')
+
+"nerdtree
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 "neosnippet
 "" neosnippet
@@ -112,7 +104,7 @@ let g:neosnippet#snippets_directory = s:my_snippet
 ""起動時に有効
 let g:neocomplete#enable_at_startup = 1
 "" ポップアップメニューで表示される候補の数
-let g:neocomplete#max_list = 50
+let g:neocomplete#max_list = 100
 ""キーワードの長さ、デフォルトで80
 let g:neocomplete#max_keyword_width = 80
 let g:neocomplete#enable_ignore_case = 1
@@ -123,6 +115,7 @@ let g:neocomplete#min_keyword_length = 2
 let g:neocomplete#enable_auto_delimiter = 1
 " 1文字目の入力から補完のポップアップを表示
 let g:neocomplete#auto_completion_start_length = 2
+
 inoremap <expr><CR>  pumvisible() ? neocomplete#close_popup() : "<CR>"
 
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -154,6 +147,7 @@ nnoremap (keymapping) :T (command)<CR><C-w>j
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
 endfunction
+let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 
 " Set tabline.
 function! s:my_tabline()  "{{{
@@ -174,7 +168,6 @@ function! s:my_tabline()  "{{{
   let s .= '%#TabLineFill#%T%=%#TabLine#'
   return s
 endfunction "}}}
-let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 set showtabline=2 " 常にタブラインを表示
 
 " The prefix key.
@@ -186,15 +179,15 @@ for n in range(1, 9)
 endfor
 " t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
 
-map <silent> [Tag]c :tablast <bar> tabnew<CR>
-" tc 新しいタブを一番右に作る
+map <silent> <c-n> :tablast <bar> tabnew<CR>
+" close tab
+map <silent> <c-_> :tabclose<CR>
 map <silent> [Tag]x :tabclose<CR>
-" tx タブを閉じる
-map <silent> [Tag]n :tabnext<CR>
-" tn 次のタブ
-map <silent> [Tag]p :tabprevious<CR>
-" tp 前のタブ
 
+" jump to before tab
+map <silent> <c-k> :tabnext<CR>
+" jump to before tab
+map <silent> <c-j> :tabprevious<CR>
 
 "カーソルを行頭，行末で止まらないようにする
 "set whichwrap=b,s,h,l,<,>,[,]
@@ -208,28 +201,33 @@ let g:neoterm_default_mod = 'split'
 let g:neoterm_size = 20
 "set termwinsize=8x0
 "set clipboard=unnamed,autoselect
-"" Save fold settings.
-autocmd BufWritePost * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
-autocmd BufRead * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
 " Don't save options.
 set viewoptions-=options
 set number
 set cursorline
 let g:vim_markdown_conceal = 0
 
-let g:auto_save=1
-let g:auto_save_in_insert_mode=0
+"let g:auto_save=1
+"let g:auto_save_in_insert_mode=0
 set termwinsize=8x0
 set splitbelow
 set mouse=a
 set ttymouse=xterm2
 "set background=light
-colorscheme molokai
+"colorscheme molokai
 "colorscheme solarized
 set term=xterm-256color
 syntax enable
-colorscheme solarized
-set background=dark
-highlight CursorLine ctermbg=Black
+"colorscheme solarized
+"set background=dark
+"highlight CursorLine ctermbg=Black
+"
+"hi Terminal ctermbg=black
+"colorscheme hybrid
 
-hi Terminal ctermbg=black
+set clipboard=unnamed,autoselect
+set hidden
+autocmd QuickFixCmdPost *grep* cwindow
+set tags=./tags;$HOME
+autocmd BufRead * if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
+autocmd BufWritePost * if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
