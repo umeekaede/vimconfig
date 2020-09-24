@@ -31,6 +31,8 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet.vim'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'vim-scripts/vim-auto-save'
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'mattn/vim-lsp-settings'
 "Plugin 'cohama/lexima.vim'
 
 Plugin 'dhruvasagar/vim-table-mode'

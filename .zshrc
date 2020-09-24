@@ -1,29 +1,29 @@
+export PATH=/usr/bin:/usr/local/bin:$PATH
+export PATH=/usr/local/bin:$PATH
+export LD_LIBRARY_PATH=/usr/lib
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
 source ~/sfw/root-6.18.02/obj/bin/thisroot.sh
 export PATH=/usr/local/opt/qt/bin:$PATH
 export LDFLAGS="-L/usr/local/opt/qt/lib":$LDFLAGS
 export CPPFLAGS="-I/usr/local/opt/qt/include":$CPPFLAGS
 export PKG_CONFIG_PATH=/usr/local/opt/qt/lib/pkgconfig:$PKG_CONFIG_PATH
 
-#export C_INCLUDE_PATH="~/sfw/geant4.10.06.p02-install/include/Geant4"
-#export C_INCLUDE_PATH="/usr/local/include/CLHEP"
-
-#cd ~/sfw/geant4.10.06.p02-install/bin/
-source ~/sfw/geant4.10.06.p02-install/bin/geant4_zsh.sh
-#source geant4.sh
-#cd ~
-#
 export G4INST_DIR=~/sfw/geant4.10.06.p02-install
 export PATH=$G4INST_DIR/bin:$PATH
 export LD_LIBRARY_PATH=$G4INST_DIR/lib:$LD_LIBRARY_PATH
+
 export G4ENSDFSTATEDATA=$G4INST_DIR/share/Geant4-10.6.2/data/G4ENSDFSTATE2.2
 export G4INCLUDE=~/sfw/geant4.10.06.p02-install/include
+export G4LEDATA=~/sfw/geant4.10.06.p02-install/share/Geant4-10.6.2/data/G4EMLOW7.7
+source ~/sfw/geant4.10.06.p02-install/bin/geant4_zsh.sh
 
 
 
 alias gcmake='cmake -DGeant4_DIR=~/sfw/geant4.10.06.p02-install/lib/Geant4-10.6.2/'
 alias python='/usr/bin/python3'
 export CLHEP_BASE_DIR=/usr/local/include/CLHEP
-export G4VRMLFILE_VIEWER=/Applications/freewrl.app/Contents/MacOS/FreeWRL
+export G4VRMLFILE_VIEWER=freewrl
 
 export LANG=ja_JP.UTF-8
 export LC_ALL='ja_JP.UTF-8'
@@ -89,3 +89,5 @@ export LSCOLORS=gxfxcxdxbxegedabagacad
 
 alias root='root -l'
 export PYTHONSTARTUP=~/.pythonstartup
+alias fr='freewrl'
+export CLHEP_BASE_DIR=~/sfw/2.2.0.8
